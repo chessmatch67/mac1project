@@ -1,17 +1,14 @@
+
 import customtkinter
 import tkinter as tk
 
-root = customtkinter.CTk()
+root = tk.Tk()
+
 root.geometry('400x500')
-opt = ['exit']
-menuopt1 = tk.OptionMenu(root, *opt)
-menuopt1.pack()
- menuopt1.config()
 
 
 
-
-
-
+# m = tk.Message(root, text='hello this is a test')
+# m.pack()
 
 root.mainloop()
