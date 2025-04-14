@@ -15,12 +15,10 @@ font2 = ('Arial', 17)
 sequence = "" 
 field_text = "" 
 store = ""
-display1 = ""
+
 
 def field_to_add(sth): 
     global field_text 
-    global display1
-    display1 = field_text
     field_text= field_text+str(sth)
     print(field_text, sth)
 
@@ -40,6 +38,7 @@ def clear():
     field_text = "" 
     field.delete("1.0", "end") 
     field.insert("1.0", field_text)
+    label_display.config(text= "")
 
 def delete():
     global field_text  
@@ -53,10 +52,10 @@ def delete():
     field.insert("1.0", field_text)
 
 
+
 def hover_display_result():
     global field_text
-    global display1
-    label_display.config(text= display1)
+    label_display.config(text= field_text)
 
 
 
@@ -71,6 +70,13 @@ window.title("Calculator")
 # frame 1 
 field = customtkinter.CTkTextbox(window, height= 2, width= 12, font= font1, fg_color='#0e0f0f', text_color="white") 
 field.place(relx= 0, rely= .1, relwidth= 5,) 
+
+first_menu = customtkinter.CTkOptionMenu(window, 
+values=["history", "Exit", "settings"],
+                                                                                
+)
+first_menu.place(relx= .55, rely= 0)
+# first_menu.config(text='History')
 
 # frame 1 end 
 # frame 2 
