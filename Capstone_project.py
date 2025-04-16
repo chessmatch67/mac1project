@@ -4,6 +4,7 @@ import math
 from tkinter import END 
 
 
+
 # variables area only 
 width = 287
 height = 400 
@@ -30,12 +31,14 @@ def field_to_add(sth):
 def calculate(): 
     global field_text 
     global result
+    global taken_value
     result = str(eval(field_text)) 
     field.delete("1.0", "end") 
     field.insert("1.0", result)
     hover_display_result()
-    History_caculation(field_text)
-    get_history()
+    
+    taken_value = History_caculation(field_text)
+
 
 def clear(): 
     global field_text 
@@ -43,6 +46,7 @@ def clear():
     field.delete("1.0", "end") 
     field.insert("1.0", field_text)
     label_display.config(text= "")
+    field.insert(END,'0')
 
 def delete():
     global field_text  
@@ -54,6 +58,10 @@ def delete():
 
     field.delete("1.0", "end") 
     field.insert("1.0", field_text)
+    field.insert(END,'')
+
+    if field_text == "":
+           field.insert(END,'0')
 
 
 
@@ -66,13 +74,29 @@ def History_caculation(user):
     global result
     full = user + "=" +result
     store.append(full)
-    print(store)
-
-# def get_history():
-#     semi = History_caculation(field_text)
-#     history_display.config(text= semi)
+    return store
 
 
+def history_setting(choice):
+
+    if choice == "history":
+        for histories in taken_value:
+            store_listbox.insert(END, histories)
+        store_listbox.place(relx= 0, rely= .7)
+        store_listbox.lift()
+
+
+
+
+    else:
+        store_listbox.destroy()
+    
+    
+
+
+        
+
+    
 
 
 window = tk.Tk() 
@@ -86,13 +110,16 @@ window.title("Calculator")
 # frame 1 
 field = customtkinter.CTkTextbox(window, height= 2, width= 12, font= font1, fg_color='#0e0f0f', text_color="white") 
 field.place(relx= 0, rely= .15, relwidth= 5,) 
+field.insert(END,'0')
 
-# first_menu = customtkinter.CTkOptionMenu(window, 
-# values=["history", "Exit", "settings"],
-                                                                                
-# )
-# first_menu.place(relx= .55, rely= 0)
-# first_menu.config(text='History')
+
+
+first_menu = customtkinter.CTkOptionMenu(window, 
+values=["history", "Exit", "settings"], command= history_setting                                                                             
+)
+first_menu.place(relx= .55, rely= 0)
+
+store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
 
 # history_display = tk.Label(window, text="")
 # history_display.pack()
@@ -214,9 +241,11 @@ button8_h.place(relx= .05, rely= .85)
 # fg_color= button_colors, 
 # hover_color= "gray") 
 # button9.grid(row= 4, column= 2,) 
+
 # img = Image.open("!-Photoroom.copy.png").resize((50, 55)) 
 # fhoto_1 = ImageTk.PhotoImage(img) 
 # adding and subtracting buttons 
+
 add_button1 = customtkinter.CTkButton(un_lable2, text='+', command= lambda: field_to_add('+'), 
 height= 50, 
 width= 50, 
@@ -256,7 +285,7 @@ hover_color= "#edb832"
 ) 
 equal_button3.place(relx= .75, rely= .73) 
 
-equal_button3 = customtkinter.CTkButton(un_lable2, text='.', command= lambda: field_to_add('.'), 
+equal_button3 = customtkinter.CTkButton(un_lable2, text='D', command= lambda: delete(), 
 height= 50, 
 width= 50, 
 corner_radius= 25, 
@@ -264,7 +293,7 @@ fg_color= button_colors,
 hover_color= "gray") 
 equal_button3.grid(row= 3, column= 3)
 
-button9 = customtkinter.CTkButton(un_lable2, text='D', command= lambda: delete(), 
+button9 = customtkinter.CTkButton(un_lable2, text='.', command= lambda: field_to_add('.'), 
 height= 50, 
 width= 50, 
 corner_radius= 25, 
