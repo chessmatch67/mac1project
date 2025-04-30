@@ -2,8 +2,15 @@ import tkinter as tk
 import customtkinter 
 import math 
 from tkinter import END 
+from PIL import Image
 
 
+
+Humburger_option_image = customtkinter.CTkImage(light_image= Image.open('icons8-hamburger-menu-50.png'),
+ dark_image= Image.open('icons8-hamburger-menu-50.png'))
+
+delete_image = customtkinter.CTkImage(light_image= Image.open('delete.png'),
+ dark_image= Image.open('delete.png'))
 
 # variables area only 
 width = 287
@@ -16,6 +23,8 @@ font2 = ('Arial', 17)
 sequence = "" 
 field_text = "" 
 store = []
+
+
 
 
 def field_to_add(sth): 
@@ -78,19 +87,23 @@ def History_caculation(user):
 
 
 def history_setting(choice):
+    global store_listbox
 
     if choice == "history":
-        for histories in taken_value:
-            store_listbox.insert(END, histories)
-        store_listbox.place(relx= 0, rely= .7)
-        store_listbox.lift()
-
-
-
-
+        if store_listbox is None:
+            store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
+            store_listbox.delete(0, END)
+            
+            for histories in taken_value:
+                store_listbox.insert(END, histories)
+                store_listbox.place(relx= 0, rely= .7)
+                store_listbox.lift()
     else:
-        store_listbox.destroy()
-    
+
+        if store_listbox is not None:
+            store_listbox.destroy()
+            store_listbox = None
+   
     
 
 
@@ -110,8 +123,11 @@ window.title("Calculator")
 # frame 1 
 field = customtkinter.CTkTextbox(window, height= 2, width= 12, font= font1, fg_color='#0e0f0f', text_color="white") 
 field.place(relx= 0, rely= .15, relwidth= 5,) 
+
 field.insert(END,'0')
 
+image_labe = customtkinter.CTkLabel(window, text="", image= delete_image)
+image_labe.pack(pady = 200)
 
 
 first_menu = customtkinter.CTkOptionMenu(window, 
@@ -119,11 +135,12 @@ values=["history", "Exit", "settings"], command= history_setting
 )
 first_menu.place(relx= .55, rely= 0)
 
-store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
+# store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
 
 # history_display = tk.Label(window, text="")
 # history_display.pack()
-
+store_listbox = None
+scrollbar1 = None
 # frame 1 end 
 # frame 2 
 height_1 = 50 
@@ -285,7 +302,7 @@ hover_color= "#edb832"
 ) 
 equal_button3.place(relx= .75, rely= .73) 
 
-equal_button3 = customtkinter.CTkButton(un_lable2, text='D', command= lambda: delete(), 
+equal_button3 = customtkinter.CTkButton(un_lable2, text='.',   command= lambda: delete(), 
 height= 50, 
 width= 50, 
 corner_radius= 25, 
