@@ -86,26 +86,6 @@ def History_caculation(user):
     return store
 
 
-def history_setting(choice):
-    global store_listbox
-
-    if choice == "history":
-        if store_listbox is None:
-            store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
-            store_listbox.delete(0, END)
-            
-            for histories in taken_value:
-                store_listbox.insert(END, histories)
-                store_listbox.place(relx= 0, rely= .7)
-                store_listbox.lift()
-    else:
-
-        if store_listbox is not None:
-            store_listbox.destroy()
-            store_listbox = None
-   
-    
-
 
         
 
@@ -130,10 +110,42 @@ image_labe = customtkinter.CTkLabel(window, text="", image= delete_image)
 image_labe.pack(pady = 200)
 
 
-first_menu = customtkinter.CTkOptionMenu(window, 
-values=["history", "Exit", "settings"], command= history_setting                                                                             
-)
-first_menu.place(relx= .55, rely= 0)
+before_image = Image.open("icons8-hamburger-menu-50.png")
+rezied_pict = before_image.resize((900, 900), Image.Resampling.LANCZOS)
+
+icon_image_change = customtkinter.CTkImage(dark_image= rezied_pict, light_image= rezied_pict)
+def open_menu():
+    menu.post(image_button.winfo_rootx(), image_button.winfo_rooty() + image_button.winfo_height())
+
+image_button = customtkinter.CTkButton(window, text="", image=icon_image_change, width= 30, height= 30, command=open_menu, fg_color="transparent", hover_color="lightgray")
+image_button.place(relx= .87, rely= 0)
+
+
+def History_st():
+    global store_listbox
+    
+    if store_listbox is None:
+            store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
+            store_listbox.delete(0, END)
+            
+            for histories in taken_value:
+                store_listbox.insert(END, histories)
+                store_listbox.place(relx= 0, rely= .7)
+                store_listbox.lift()
+   
+def Exist_st():
+    global store_listbox
+
+    if store_listbox is not None:
+            store_listbox.destroy()
+            store_listbox = None
+
+
+menu = tk.Menu(window, tearoff=0)
+menu.add_command(label="History", compound="left", command= History_st)
+menu.add_command(label="Exist", compound="left", command= Exist_st)
+
+
 
 # store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
 
