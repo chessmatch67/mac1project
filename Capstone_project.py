@@ -6,7 +6,6 @@ from PIL import Image
 import testin
 
 
-
 Humburger_option_image = customtkinter.CTkImage(light_image= Image.open('icons8-hamburger-menu-50.png'),
  dark_image= Image.open('icons8-hamburger-menu-50.png'))
 
@@ -34,7 +33,6 @@ def field_to_add(sth):
     field.delete("1.0", "end") 
     field.insert("1.0", field_text) 
 
-
 def calculate(): 
     global field_text 
     global result
@@ -45,7 +43,6 @@ def calculate():
     hover_display_result()
     
     taken_value = History_caculation(field_text)
-
 
 def clear(): 
     global field_text 
@@ -84,27 +81,20 @@ def History_caculation(user):
     return store
 
 
-
-        
-
-
 window = tk.Tk() 
 window.geometry(f'{width}x{height}') 
 window.resizable(False, False) 
 window.config(background="#0e0f0f") 
 window.title("Calculator") 
 
-
-
 # frame 1 
 field = customtkinter.CTkTextbox(window, height= 2, width= 12, font= font1, fg_color='#0e0f0f', text_color="white") 
 field.place(relx= 0, rely= .15, relwidth= 5,) 
 field.insert(END,'0')
 
+before_image = Image.open("menu.png")
 
-before_image = Image.open("icons8-menu-500.png")
-
-icon_image_change = testin.size_img("icons8-menu-500", 32, 32)
+icon_image_change = testin.size_img("menu", 32, 32)
 def open_menu():
     menu.post(image_button.winfo_rootx(), image_button.winfo_rooty() + image_button.winfo_height())
 
@@ -147,8 +137,7 @@ menu.add_command(label="Exist", command= Exist_st)
 
 store_listbox = None
 scrollbar1 = None
-# frame 1 end 
-# frame 2 
+
 height_1 = 50 
 width_2= 50 
 button_colors = "#36383b" 
@@ -282,8 +271,6 @@ corner_radius= 25,
 fg_color= button_semi, 
 hover_color= "#edb832", 
 ) 
-
-
 sub_button2.grid(row= 2, column= 4) 
 
 equal_button3 = customtkinter.CTkButton(window, text='=', command= lambda: calculate(),
@@ -315,5 +302,7 @@ equal_display = tk.StringVar()
 
 label_display = tk.Label(window, text= "", bg="#0e0f0f", fg="#807f7e", font= font2 )
 label_display.place(relx= .02, rely=.11)
+	
+
 # frame end 
 window.mainloop()
