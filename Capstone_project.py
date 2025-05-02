@@ -3,6 +3,7 @@ import customtkinter
 import math 
 from tkinter import END 
 from PIL import Image
+import testin
 
 
 
@@ -25,14 +26,11 @@ field_text = ""
 store = []
 
 
-
-
 def field_to_add(sth): 
     global field_text 
 
     field_text= field_text+str(sth)
-    print(field_text)
-
+    # print(field_text)
     field.delete("1.0", "end") 
     field.insert("1.0", field_text) 
 
@@ -89,8 +87,6 @@ def History_caculation(user):
 
         
 
-    
-
 
 window = tk.Tk() 
 window.geometry(f'{width}x{height}') 
@@ -103,22 +99,26 @@ window.title("Calculator")
 # frame 1 
 field = customtkinter.CTkTextbox(window, height= 2, width= 12, font= font1, fg_color='#0e0f0f', text_color="white") 
 field.place(relx= 0, rely= .15, relwidth= 5,) 
-
 field.insert(END,'0')
 
-image_labe = customtkinter.CTkLabel(window, text="", image= delete_image)
-image_labe.pack(pady = 200)
 
+before_image = Image.open("icons8-menu-500.png")
 
-before_image = Image.open("icons8-hamburger-menu-50.png")
-rezied_pict = before_image.resize((900, 900), Image.Resampling.LANCZOS)
-
-icon_image_change = customtkinter.CTkImage(dark_image= rezied_pict, light_image= rezied_pict)
+icon_image_change = testin.size_img("icons8-menu-500", 32, 32)
 def open_menu():
     menu.post(image_button.winfo_rootx(), image_button.winfo_rooty() + image_button.winfo_height())
 
-image_button = customtkinter.CTkButton(window, text="", image=icon_image_change, width= 30, height= 30, command=open_menu, fg_color="transparent", hover_color="lightgray")
-image_button.place(relx= .87, rely= 0)
+
+image_button = customtkinter.CTkButton(window, text="", 
+image= icon_image_change, 
+width= 40, 
+height= 40, 
+command= open_menu,
+fg_color="transparent", 
+hover= False
+
+)
+image_button.place(relx= .8, rely= 0)
 
 
 def History_st():
@@ -142,15 +142,9 @@ def Exist_st():
 
 
 menu = tk.Menu(window, tearoff=0)
-menu.add_command(label="History", compound="left", command= History_st)
-menu.add_command(label="Exist", compound="left", command= Exist_st)
+menu.add_command(label="History", command= History_st)
+menu.add_command(label="Exist", command= Exist_st)
 
-
-
-# store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
-
-# history_display = tk.Label(window, text="")
-# history_display.pack()
 store_listbox = None
 scrollbar1 = None
 # frame 1 end 
@@ -159,7 +153,6 @@ height_1 = 50
 width_2= 50 
 button_colors = "#36383b" 
 button_semi = "#bd7108"
-
 
 un_lable2 = customtkinter.CTkFrame(window, fg_color='#0e0f0f') 
 un_lable2.place(relx= .03, rely= .3, relheight= 400, relwidth= .94) 
@@ -263,18 +256,6 @@ fg_color= button_colors,
 hover_color= "gray") 
 button8_h.place(relx= .05, rely= .85) 
 
-# button9 = customtkinter.CTkButton(un_lable2, text=')', command= lambda: field_to_add(')'), 
-# height= 50, 
-# width= 50, 
-# corner_radius= 25, 
-# fg_color= button_colors, 
-# hover_color= "gray") 
-# button9.grid(row= 4, column= 2,) 
-
-# img = Image.open("!-Photoroom.copy.png").resize((50, 55)) 
-# fhoto_1 = ImageTk.PhotoImage(img) 
-# adding and subtracting buttons 
-
 add_button1 = customtkinter.CTkButton(un_lable2, text='+', command= lambda: field_to_add('+'), 
 height= 50, 
 width= 50, 
@@ -314,7 +295,7 @@ hover_color= "#edb832"
 ) 
 equal_button3.place(relx= .75, rely= .73) 
 
-equal_button3 = customtkinter.CTkButton(un_lable2, text='.',   command= lambda: delete(), 
+equal_button3 = customtkinter.CTkButton(un_lable2, text='D',   command= lambda: delete(), 
 height= 50, 
 width= 50, 
 corner_radius= 25, 
