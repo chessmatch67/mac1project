@@ -6,12 +6,6 @@ from PIL import Image
 import testin
 
 
-Humburger_option_image = customtkinter.CTkImage(light_image= Image.open('icons8-hamburger-menu-50.png'),
- dark_image= Image.open('icons8-hamburger-menu-50.png'))
-
-delete_image = customtkinter.CTkImage(light_image= Image.open('delete.png'),
- dark_image= Image.open('delete.png'))
-
 # variables area only 
 width = 287
 height = 400 
