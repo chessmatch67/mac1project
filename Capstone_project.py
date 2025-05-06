@@ -74,6 +74,16 @@ def History_caculation(user):
     store.append(full)
     return store
 
+def clearing_listbox():
+     global store_listbox
+     global taken_value
+     store_listbox.delete(0, END)
+     taken_value = [""]
+     
+
+
+
+
 
 window = tk.Tk() 
 window.geometry(f'{width}x{height}') 
@@ -104,9 +114,13 @@ hover= False
 )
 image_button.place(relx= .8, rely= 0)
 
+button_listbox_clear= None
+
+
 
 def History_st():
     global store_listbox
+    global button_listbox_clear
     
     if store_listbox is None:
             store_listbox = tk.Listbox(window, width= 100, background="#1d2024", fg="white", border= None)
@@ -116,13 +130,25 @@ def History_st():
                 store_listbox.insert(END, histories)
                 store_listbox.place(relx= 0, rely= .7)
                 store_listbox.lift()
+       
+    button_listbox_clear =  customtkinter.CTkButton(window, text="clear", height= 30, width= 70,  
+    fg_color="#1d2024",
+    corner_radius= 0,
+    hover_color= "#383f45",
+    command= clearing_listbox)
+    button_listbox_clear.place(relx=.7, rely =.9)
+    button_listbox_clear.lift()
+
    
 def Exist_st():
     global store_listbox
+    global button_listbox_clear
 
-    if store_listbox is not None:
+    if store_listbox is not None and button_listbox_clear is not None:
             store_listbox.destroy()
             store_listbox = None
+            button_listbox_clear.destroy()
+            button_listbox_clear = None
 
 
 menu = tk.Menu(window, tearoff=0)
@@ -131,7 +157,6 @@ menu.add_command(label="Exist", command= Exist_st)
 
 store_listbox = None
 scrollbar1 = None
-
 height_1 = 50 
 width_2= 50 
 button_colors = "#36383b" 
@@ -296,7 +321,6 @@ equal_display = tk.StringVar()
 
 label_display = tk.Label(window, text= "", bg="#0e0f0f", fg="#807f7e", font= font2 )
 label_display.place(relx= .02, rely=.11)
-	
 
 # frame end 
 window.mainloop()
